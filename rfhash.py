@@ -32,20 +32,20 @@ if __name__ == '__main__':
    totalfiles = len(myfiles)
    
    for x in myfiles:
-     i += 1
-	  md5 = hashlib.md5()
-	  with open(x, 'rb') as f:
-		  filesize = os.path.getsize(x)
-		  print("Hashing "+x+" filesize "+str(filesize))
-		  while True:
+	i += 1
+	md5 = hashlib.md5()
+	with open(x, 'rb') as f:
+		filesize = os.path.getsize(x)
+		print("Hashing "+x+" filesize "+str(filesize))
+		while True:
         		data = f.read(BUF_SIZE)
         		if not data:
             			break
 	        	md5.update(data)
-		  print("Checking against RF MD5: {0}".format(md5.hexdigest()))
-		  output = x+","+format(md5.hexdigest())+","+str(rfcheck(format(md5.hexdigest())))+"\r\n"
+		print("Checking against RF MD5: {0}".format(md5.hexdigest()))
+		output = x+","+format(md5.hexdigest())+","+str(rfcheck(format(md5.hexdigest())))+"\r\n"
                 fw.write(output)
-		  fw.flush()
-		  print(output)
-		  del data
+		fw.flush()
+		print(output)
+		del data
 	  print("Completed: "+str(i)+"/"+str(totalfiles))
